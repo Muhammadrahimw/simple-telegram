@@ -1,0 +1,115 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Roboto";
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+i {
+  cursor: pointer;
+}
+
+main {
+  padding: 0.5em;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  align-items: flex-start;
+}
+
+.left {
+  width: 25%;
+  height: 670px;
+  padding: 1em;
+}
+.left .head {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1em;
+  height: 40px;
+}
+.left .head input {
+  width: 100%;
+  height: 100%;
+  border: none;
+  outline: none;
+  padding-left: 1em;
+  border-radius: 0.5em;
+  background-color: rgba(175, 175, 175, 0.2);
+}
+.left .users {
+  margin-top: 1em;
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+.left .users .user {
+  width: 100%;
+  height: 60px;
+  background-color: rgba(175, 175, 175, 0.2);
+  border-radius: 0.25em;
+}
+
+.right {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  align-items: flex-start;
+  gap: 1em;
+  width: 75%;
+  height: 670px;
+}
+.right .head {
+  width: 100%;
+  height: 70px;
+  border-bottom: 1px solid rgba(128, 128, 128, 0.2);
+}
+.right .first_screen {
+  width: 100%;
+  height: 100%;
+  border: 1px solid rgba(128, 128, 128, 0.2);
+  border-radius: 0.25em;
+  background: linear-gradient(90deg, #FDFCFB, #c3d0e2);
+}
+.right .second_screen {
+  width: 100%;
+  height: 100%;
+  border: 1px solid rgba(128, 128, 128, 0.2);
+  border-radius: 0.25em;
+  background: linear-gradient(90deg, #FDFCFB, #c3d8e2);
+}
+.right .messages {
+  height: 80.5%;
+  padding: 0.5em;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+}
+.right .sending {
+  width: 100%;
+  height: 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1em;
+  padding: 1em;
+  background-color: white;
+  border-bottom: 1px solid rgba(128, 128, 128, 0.2);
+}
+.right .sending input {
+  width: 90%;
+  height: 100%;
+  font-size: 1.25em;
+  border: none;
+  outline: none;
+  background-color: transparent;
+}
+
+/*# sourceMappingURL=style.css.map */

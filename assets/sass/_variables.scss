@@ -1,0 +1,15 @@
+$black-color: rgb(43, 43, 43);
+$white-color: rgb(255, 255, 255);
+$gray-color: rgba(175, 175, 175, 0.2);
+
+@mixin btw() {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+@mixin center() {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

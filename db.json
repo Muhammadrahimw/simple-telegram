@@ -1,0 +1,24 @@
+{
+  "user1": [
+    {
+      "id": 0,
+      "name": "firstUser",
+      "message": "salom"
+    },
+    {
+      "id": 1,
+      "name": "secondUser",
+      "message": "alik"
+    },
+    {
+      "id": 2,
+      "name": "firstUser",
+      "message": "salom"
+    },
+    {
+      "id": 3,
+      "name": "secondUser",
+      "message": "alik"
+    }
+  ]
+}
