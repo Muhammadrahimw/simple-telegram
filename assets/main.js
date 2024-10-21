@@ -4,16 +4,28 @@ let firstSendBtn = document.getElementById("send_icon_1");
 let secondSendBtn = document.getElementById("send_icon_2");
 let firstMessage = document.getElementById("first_message");
 let secondMessage = document.getElementById("second_message");
-let firstId = 0;
-let secondId = 0;
+let firstImg = document.getElementById("user_1_img");
+let secondImg = document.getElementById("user_2_img");
+let firstHiddenInput = document.getElementById("hidden_input_1");
+let secondHiddenInput = document.getElementById("hidden_input_2");
+let id = 0;
 let fetchData = null;
+
+function timeFunc() {
+  let time = new Date();
+  let hour = time.getHours();
+  let minute = time.getMinutes();
+  let second = time.getSeconds();
+  let nowTime = hour + ":" + minute + ":" + second;
+  return nowTime;
+}
 
 async function fetchFunc(user) {
   try {
     let response = await fetch(`http://localhost:3000/${user}`);
     fetchData = await response.json();
     getData(fetchData);
-    firstId = fetchData.length;
+    id = fetchData.length;
   } catch (error) {
     console.log(error + ":(");
   }
@@ -26,9 +38,10 @@ function postFetch(user, message, userNameValue) {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      id: firstId,
+      id: id,
       name: userNameValue,
       message: message,
+      time: timeFunc(),
     }),
   })
     .then((data) => data.json())
@@ -40,27 +53,50 @@ function postFetch(user, message, userNameValue) {
     });
 }
 
-function createMessage(newElement, value, firstAppend, secondAppend, realName) {
+function createMessage(
+  newElement,
+  value,
+  firstAppend,
+  secondAppend,
+  realName,
+  nowTime
+) {
   newElement = document.createElement(`${newElement}`);
   newElement.textContent = value;
   firstAppend.appendChild(newElement);
+  let newTimeElement = document.createElement("span");
+  newTimeElement.textContent = nowTime;
+  firstAppend.appendChild(newTimeElement);
   if (realName === "firstUser") {
     newElement.style.textAlign = "right";
+    newTimeElement.style.textAlign = "right";
   } else {
     newElement.style.textAlign = "left";
+    newTimeElement.style.textAlign = "left";
   }
   let copyElement = newElement.cloneNode(true);
+  let newTimeElementTwo = newTimeElement.cloneNode(true);
   secondAppend.appendChild(copyElement);
+  secondAppend.appendChild(newTimeElementTwo);
   if (realName === "firstUser") {
     copyElement.style.textAlign = "left";
+    newTimeElementTwo.style.textAlign = "left";
   } else {
     copyElement.style.textAlign = "right";
+    newTimeElementTwo.style.textAlign = "right";
   }
 }
 
 function getData(data) {
   data.forEach((item) => {
-    createMessage("p", item.message, firstMessage, secondMessage, item.name);
+    createMessage(
+      "p",
+      item.message,
+      firstMessage,
+      secondMessage,
+      item.name,
+      item.time
+    );
   });
 }
 
@@ -80,4 +116,12 @@ secondSendBtn.addEventListener("click", (e) => {
   } else {
     console.log("xabar mavjud emas");
   }
+});
+
+firstImg.addEventListener("click", () => {
+  firstHiddenInput.click();
+});
+
+secondImg.addEventListener("click", () => {
+  secondHiddenInput.click();
 });

@@ -92,6 +92,15 @@ main {
   flex-direction: column;
   gap: 0.5em;
 }
+.right .messages p {
+  font-size: 1.25em;
+}
+.right .messages span {
+  font-size: 0.65em;
+  color: rgb(43, 43, 43);
+  opacity: 0.6;
+  margin-top: -5px;
+}
 .right .sending {
   width: 100%;
   height: 60px;
@@ -110,6 +119,10 @@ main {
   border: none;
   outline: none;
   background-color: transparent;
+}
+.right .sending #hidden_input_1,
+.right .sending #hidden_input_2 {
+  display: none;
 }
 
 /*# sourceMappingURL=style.css.map */

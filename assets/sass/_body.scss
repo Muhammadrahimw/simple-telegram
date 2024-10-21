@@ -81,6 +81,18 @@ main {
         display: flex;
         flex-direction: column;
         gap: 0.5em;
+
+        p {
+            font-size: 1.25em;
+        }
+
+        span {
+            font-size: 0.65em;
+            color: $black-color;
+            opacity: 0.6;
+            margin-top: -5px;
+
+        }
     }
 
     .sending {
@@ -99,6 +111,11 @@ main {
             border: none;
             outline: none;
             background-color: transparent;
+        }
+
+        #hidden_input_1,
+        #hidden_input_2 {
+            display: none;
         }
     }
 }
