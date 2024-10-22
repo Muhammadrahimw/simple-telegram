@@ -34,7 +34,7 @@
         <div class="right">
             <div class="first_screen">
                 <div class="head"></div>
-                <div id="first_message" class="messages"></div>
+                <div id="first_message" class="messages scrollable"></div>
                 <div class="sending">
                     <input id="hidden_input_1" type="file">
                     <i id="user_1_img" class="fa-solid fa-paperclip fa-lg"></i>
@@ -45,7 +45,7 @@
             </div>
             <div class="second_screen">
                 <div class="head"></div>
-                <div id="second_message" class="messages"></div>
+                <div id="second_message" class="messages scrollable"></div>
                 <div class="sending">
                     <input id="hidden_input_2" type="file">
                     <i id="user_2_img" class="fa-solid fa-paperclip fa-lg"></i>
@@ -56,7 +56,14 @@
             </div>
         </div>
     </main>
-
+    <div class="forPassword">
+        <form class="passContainer">
+            <input id="passCode" placeholder="telegram" type="password">
+            <button id="passBtn" type="submit">NEXT</button>
+            <p>Log out if you don't remember your
+                passcode</p>
+        </form>
+    </div>
     <script src="./main.js"></script>
 </body>
 

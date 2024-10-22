@@ -81,6 +81,7 @@ main {
         display: flex;
         flex-direction: column;
         gap: 0.5em;
+        overflow-y: auto;
 
         p {
             font-size: 1.25em;
@@ -117,5 +118,85 @@ main {
         #hidden_input_2 {
             display: none;
         }
+    }
+}
+
+// scroll
+.scrollable {
+    width: 100%;
+    height: 200px;
+    overflow-y: auto;
+    border: 1px solid #ddd;
+}
+
+.scrollable::-webkit-scrollbar {
+    width: 6px;
+}
+
+.scrollable::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+.scrollable::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 10px;
+}
+
+.scrollable::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+// password
+
+.forPassword {
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(100px);
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.passContainer {
+    width: 28%;
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    background-color: rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(20px);
+    padding: 2em;
+    border-radius: 0.5em;
+
+    input {
+        width: 100%;
+        height: 60px;
+        border-radius: 2em;
+        font-size: 1.25em;
+        padding-left: 1em;
+        border: none;
+        outline: none;
+    }
+
+    button {
+        width: 100%;
+        height: 60px;
+        border-radius: 0.5em;
+        font-size: 1.25em;
+        border: none;
+        outline: none;
+        font-weight: 500;
+        letter-spacing: 1.5px;
+        cursor: pointer;
+    }
+
+    p {
+        font-size: 1.25em;
+        font-weight: 400;
+        color: $white-color;
     }
 }

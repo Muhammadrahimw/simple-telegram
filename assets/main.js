@@ -65,33 +65,45 @@ function createMessage(
 ) {
   newElement = document.createElement(`${newElement}`);
   newElement.textContent = value;
-  firstAppend.appendChild(newElement);
   let newTimeElement = document.createElement("span");
   newTimeElement.textContent = nowTime;
+  firstAppend.appendChild(newElement);
+
+  if (img) {
+    let image = document.createElement("img");
+    image.src = `${img}`;
+    image.width = 150;
+    image.height = 150;
+    if (realName === "firstUser") {
+      newElement.appendChild(image);
+      image.alt = "firstUser image";
+    } else {
+      newElement.appendChild(image);
+      image.alt = "secondUser image";
+    }
+  }
   firstAppend.appendChild(newTimeElement);
 
-  //   image.style.cssText = `width: 200px; height: 200px; background-image: url(${img})`;
-
   if (realName === "firstUser") {
-    newElement.style.textAlign = "right";
-    newTimeElement.style.textAlign = "right";
+    newElement.style.cssText = `display: flex; flex-direction: column; align-items: end;`;
+    newTimeElement.style.cssText = `display: flex; justify-content: end;`;
   } else {
-    newElement.style.textAlign = "left";
-    newTimeElement.style.textAlign = "left";
+    newElement.style.cssText = `display: flex; flex-direction: column; align-items: start;`;
+    newTimeElement.style.cssText = `display: flex; justify-content: start;`;
   }
+
   let copyElement = newElement.cloneNode(true);
   let newTimeElementTwo = newTimeElement.cloneNode(true);
-  //   firstAppend.appendChild(image);
-  //   secondAppend.appendChild(image);
+
+  if (realName === "firstUser") {
+    copyElement.style.cssText = `display: flex; flex-direction: column; align-items: start;`;
+    newTimeElementTwo.style.cssText = `display: flex; justify-content: start;`;
+  } else {
+    copyElement.style.cssText = `display: flex; flex-direction: column; align-items: end;`;
+    newTimeElementTwo.style.cssText = `display: flex; justify-content: end;`;
+  }
   secondAppend.appendChild(copyElement);
   secondAppend.appendChild(newTimeElementTwo);
-  if (realName === "firstUser") {
-    copyElement.style.textAlign = "left";
-    newTimeElementTwo.style.textAlign = "left";
-  } else {
-    copyElement.style.textAlign = "right";
-    newTimeElementTwo.style.textAlign = "right";
-  }
 }
 
 function getData(data) {
@@ -102,7 +114,8 @@ function getData(data) {
       firstMessage,
       secondMessage,
       item.name,
-      item.time
+      item.time,
+      item.img
     );
   });
 }
@@ -110,7 +123,7 @@ function getData(data) {
 fetchFunc("user1");
 
 firstSendBtn.addEventListener("click", (e) => {
-  if (firstInput.value) {
+  if (firstInput.value || firstHiddenInput.files[0]) {
     let img = firstHiddenInput.files[0];
     if (img) {
       let reader = new FileReader();
@@ -128,7 +141,7 @@ firstSendBtn.addEventListener("click", (e) => {
 });
 
 secondSendBtn.addEventListener("click", (e) => {
-  if (secondInput.value) {
+  if (secondInput.value || secondHiddenInput.files[0]) {
     let img = secondHiddenInput.files[0];
     if (img) {
       let reader = new FileReader();
@@ -151,4 +164,27 @@ firstImg.addEventListener("click", () => {
 
 secondImg.addEventListener("click", () => {
   secondHiddenInput.click();
+});
+
+// password
+
+let forPassword = document.querySelector(".forPassword");
+let passCode = document.querySelector("#passCode");
+let passBtn = document.querySelector("#passBtn");
+
+if (localStorage.getItem("token")) {
+  forPassword.style.display = "none";
+}
+passBtn.addEventListener("click", (e) => {
+  e.preventDefault();
+  if (localStorage.getItem("token") === "token") {
+    forPassword.style.display = "none";
+  } else {
+    if (passCode.value === "telegram") {
+      localStorage.setItem("token", "token");
+      forPassword.style.display = "none";
+    }
+    console.log("password: telegram");
+    passCode.value = "";
+  }
 });
