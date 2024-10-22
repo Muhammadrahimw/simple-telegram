@@ -31,7 +31,7 @@ async function fetchFunc(user) {
   }
 }
 
-function postFetch(user, message, userNameValue) {
+function postFetch(user, message, userNameValue, imgValue) {
   fetch(`http://localhost:3000/${user}`, {
     method: "POST",
     headers: {
@@ -41,6 +41,7 @@ function postFetch(user, message, userNameValue) {
       id: id,
       name: userNameValue,
       message: message,
+      img: imgValue,
       time: timeFunc(),
     }),
   })
@@ -59,7 +60,8 @@ function createMessage(
   firstAppend,
   secondAppend,
   realName,
-  nowTime
+  nowTime,
+  img
 ) {
   newElement = document.createElement(`${newElement}`);
   newElement.textContent = value;
@@ -67,6 +69,9 @@ function createMessage(
   let newTimeElement = document.createElement("span");
   newTimeElement.textContent = nowTime;
   firstAppend.appendChild(newTimeElement);
+
+  //   image.style.cssText = `width: 200px; height: 200px; background-image: url(${img})`;
+
   if (realName === "firstUser") {
     newElement.style.textAlign = "right";
     newTimeElement.style.textAlign = "right";
@@ -76,6 +81,8 @@ function createMessage(
   }
   let copyElement = newElement.cloneNode(true);
   let newTimeElementTwo = newTimeElement.cloneNode(true);
+  //   firstAppend.appendChild(image);
+  //   secondAppend.appendChild(image);
   secondAppend.appendChild(copyElement);
   secondAppend.appendChild(newTimeElementTwo);
   if (realName === "firstUser") {
@@ -104,7 +111,17 @@ fetchFunc("user1");
 
 firstSendBtn.addEventListener("click", (e) => {
   if (firstInput.value) {
-    postFetch("user1", firstInput.value, "firstUser");
+    let img = firstHiddenInput.files[0];
+    if (img) {
+      let reader = new FileReader();
+      reader.onload = function (event) {
+        let imgData = event.target.result;
+        postFetch("user1", firstInput.value, "firstUser", imgData);
+      };
+      reader.readAsDataURL(img);
+    } else {
+      postFetch("user1", firstInput.value, "firstUser");
+    }
   } else {
     console.log("xabar mavjud emas");
   }
@@ -112,7 +129,17 @@ firstSendBtn.addEventListener("click", (e) => {
 
 secondSendBtn.addEventListener("click", (e) => {
   if (secondInput.value) {
-    postFetch("user1", secondInput.value, "secondUser");
+    let img = secondHiddenInput.files[0];
+    if (img) {
+      let reader = new FileReader();
+      reader.onload = function (event) {
+        let imgData = event.target.result;
+        postFetch("user1", secondInput.value, "secondUser", imgData);
+      };
+      reader.readAsDataURL(img);
+    } else {
+      postFetch("user1", secondInput.value, "secondUser");
+    }
   } else {
     console.log("xabar mavjud emas");
   }
