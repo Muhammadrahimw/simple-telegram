@@ -155,7 +155,7 @@ main {
   position: fixed;
   top: 0;
   left: 0;
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: rgba(0, 0, 0, 0.8);
   backdrop-filter: blur(100px);
   width: 100vw;
   height: 100vh;
@@ -169,15 +169,15 @@ main {
   display: flex;
   flex-direction: column;
   gap: 1em;
-  background-color: rgba(0, 0, 0, 0.1);
+  background-color: rgba(121, 121, 121, 0.5);
   backdrop-filter: blur(20px);
-  padding: 2em;
+  padding: 1.5em;
   border-radius: 0.5em;
 }
 .passContainer input {
   width: 100%;
   height: 60px;
-  border-radius: 2em;
+  border-radius: 0.5em;
   font-size: 1.25em;
   padding-left: 1em;
   border: none;
@@ -198,6 +198,10 @@ main {
   font-size: 1.25em;
   font-weight: 400;
   color: rgb(255, 255, 255);
+}
+
+#closeLockIcon {
+  display: none;
 }
 
 .modal {

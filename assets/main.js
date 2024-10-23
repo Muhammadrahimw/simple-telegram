@@ -1,7 +1,9 @@
-// password
 let forPassword = document.querySelector(".forPassword");
 let passCode = document.querySelector("#passCode");
 let passBtn = document.querySelector("#passBtn");
+let lockIcon = document.querySelector("#openLockIcon");
+let lokedIcon = document.querySelector("#closeLockIcon");
+let searchInput = document.querySelector("#searchInput");
 
 if (localStorage.getItem("token")) {
   forPassword.style.display = "none";
@@ -14,10 +16,21 @@ passBtn.addEventListener("click", (e) => {
     if (passCode.value === "telegram") {
       localStorage.setItem("token", "token");
       forPassword.style.display = "none";
+      lockIcon.style.display = "block";
+      lokedIcon.style.display = "none";
     }
     console.log("password: telegram");
     passCode.value = "";
   }
+});
+
+lockIcon.addEventListener("click", () => {
+  lockIcon.style.display = "none";
+  lokedIcon.style.display = "block";
+  setTimeout(() => {
+    localStorage.removeItem("token");
+    forPassword.style.display = "flex";
+  }, 400);
 });
 
 // password
@@ -50,7 +63,8 @@ async function fetchFunc(user) {
     let response = await fetch(`http://localhost:3000/${user}`);
     fetchData = await response.json();
     getData(fetchData);
-    id = fetchData.length;
+    // id = fetchData.length;
+    id = String(Date.now());
   } catch (error) {
     console.log(error + ":(");
   }
@@ -325,3 +339,32 @@ document.addEventListener(
 );
 
 // -----------------------------------------------------
+
+let bars = document.querySelector("#bars");
+let users = document.querySelector(".users");
+let left = document.querySelector(".left");
+let right = document.querySelector(".right");
+
+bars.addEventListener("click", () => {
+  if (left.style.width === 7 + "%") {
+    searchInput.style.display = `block`;
+    localStorage.setItem("bars", "big");
+    left.style.cssText = `width: 25%; transition: 0.2s;`;
+    right.style.cssText = `width: 75%; transition: 0.2s;`;
+  } else {
+    searchInput.style.display = `none`;
+    localStorage.setItem("bars", "small");
+    left.style.cssText = `width: 7%; transition: 0.2s;`;
+    right.style.cssText = `width: 93%; transition: 0.2s;`;
+  }
+});
+
+if (localStorage.getItem("bars") === "small") {
+  searchInput.style.display = `none`;
+  left.style.cssText = `width: 7%; transition: 0.2s;`;
+  right.style.cssText = `width: 93%; transition: 0.2s;`;
+} else {
+  searchInput.style.display = `block`;
+  left.style.cssText = `width: 25%; transition: 0.2s;`;
+  right.style.cssText = `width: 75%; transition: 0.2s;`;
+}
