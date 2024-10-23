@@ -19,6 +19,7 @@ passBtn.addEventListener("click", (e) => {
     passCode.value = "";
   }
 });
+
 // password
 
 let firstInput = document.getElementById("user_1_message");
@@ -272,30 +273,39 @@ deleteBtn.addEventListener("click", () => {
 
 editBtn.addEventListener("click", () => {
   async function additionFunc(editId) {
-    let newImg = null;
     let data = await getFetch(editId);
+    let newImg = data.img;
+
     if (data.name === "firstUser") {
       firstInput.value = data.message;
     } else {
       secondInput.value = data.message;
     }
-    let img = firstHiddenInput.files[0];
-    if (img) {
-      let reader = new FileReader();
-      reader.onload = function (event) {
-        let imgData = event.target.result;
-        newImg = imgData;
-      };
-      reader.readAsDataURL(img);
-    } else {
-      newImg = data.img;
-    }
+
     checkEdit = true;
-    firstSendBtn.addEventListener("click", () => {
+
+    firstSendBtn.addEventListener("click", async () => {
+      let img = firstHiddenInput.files[0];
+      if (img) {
+        newImg = await new Promise((resolve) => {
+          let reader = new FileReader();
+          reader.onload = (event) => resolve(event.target.result);
+          reader.readAsDataURL(img);
+        });
+      }
       editFetch(editId, data.name, firstInput.value, newImg);
     });
-    secondSendBtn.addEventListener("click", () => {
-      editFetch(editId, data.name, secondInput.value, data.img);
+
+    secondSendBtn.addEventListener("click", async () => {
+      let img = secondHiddenInput.files[0];
+      if (img) {
+        newImg = await new Promise((resolve) => {
+          let reader = new FileReader();
+          reader.onload = (event) => resolve(event.target.result);
+          reader.readAsDataURL(img);
+        });
+      }
+      editFetch(editId, data.name, secondInput.value, newImg);
     });
   }
   additionFunc(editId);
