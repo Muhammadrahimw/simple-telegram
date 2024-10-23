@@ -200,4 +200,22 @@ main {
   color: rgb(255, 255, 255);
 }
 
+.modal {
+  position: absolute;
+  background-color: white;
+  border: 1px solid #ccc;
+  padding: 0.5em;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  display: none;
+  z-index: 1000;
+  gap: 0.25em;
+  flex-direction: column;
+}
+.modal .btn {
+  font-size: 1.25em;
+  width: 4em;
+  height: 1.5em;
+}
+
 /*# sourceMappingURL=style.css.map */

@@ -1,3 +1,26 @@
+// password
+let forPassword = document.querySelector(".forPassword");
+let passCode = document.querySelector("#passCode");
+let passBtn = document.querySelector("#passBtn");
+
+if (localStorage.getItem("token")) {
+  forPassword.style.display = "none";
+}
+passBtn.addEventListener("click", (e) => {
+  e.preventDefault();
+  if (localStorage.getItem("token") === "token") {
+    forPassword.style.display = "none";
+  } else {
+    if (passCode.value === "telegram") {
+      localStorage.setItem("token", "token");
+      forPassword.style.display = "none";
+    }
+    console.log("password: telegram");
+    passCode.value = "";
+  }
+});
+// password
+
 let firstInput = document.getElementById("user_1_message");
 let secondInput = document.getElementById("user_2_message");
 let firstSendBtn = document.getElementById("send_icon_1");
@@ -10,6 +33,7 @@ let firstHiddenInput = document.getElementById("hidden_input_1");
 let secondHiddenInput = document.getElementById("hidden_input_2");
 let id = 0;
 let fetchData = null;
+let checkEdit = false;
 
 function timeFunc() {
   let time = new Date();
@@ -54,6 +78,51 @@ function postFetch(user, message, userNameValue, imgValue) {
     });
 }
 
+function deleteFetch(id) {
+  fetch(`http://localhost:3000/user1/${id}`, {
+    method: `DELETE`,
+  }).then((data) => {
+    if (data.ok) {
+      console.log(`Muvaffaqiyatli o'chirildi`);
+    } else {
+      console.log(`Afsuski o'chirilmadi :(`);
+    }
+  });
+}
+
+function editFetch(id, oldName, newMessage, imgValue) {
+  fetch(`http://localhost:3000/user1/${id}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      id: id,
+      name: oldName,
+      message: newMessage,
+      img: imgValue,
+      time: timeFunc(),
+    }),
+  })
+    .then((data) => data.json())
+    .then((data) => {
+      console.log("muvaffaqiyatli yangilandi");
+    })
+    .catch((error) => {
+      console.log(error + "yangilanmadi :(");
+    });
+}
+
+async function getFetch(id) {
+  try {
+    let info = await fetch(`http://localhost:3000/user1/${id}`);
+    let data = await info.json();
+    return data;
+  } catch (error) {
+    console.log(error + " Ma'lumot yo'q :(");
+  }
+}
+
 function createMessage(
   newElement,
   value,
@@ -61,10 +130,13 @@ function createMessage(
   secondAppend,
   realName,
   nowTime,
-  img
+  img,
+  id
 ) {
   newElement = document.createElement(`${newElement}`);
   newElement.textContent = value;
+  newElement.classList.add("p");
+  newElement.setAttribute(`data-id`, id);
   let newTimeElement = document.createElement("span");
   newTimeElement.textContent = nowTime;
   firstAppend.appendChild(newElement);
@@ -115,7 +187,8 @@ function getData(data) {
       secondMessage,
       item.name,
       item.time,
-      item.img
+      item.img,
+      item.id
     );
   });
 }
@@ -123,20 +196,22 @@ function getData(data) {
 fetchFunc("user1");
 
 firstSendBtn.addEventListener("click", (e) => {
-  if (firstInput.value || firstHiddenInput.files[0]) {
-    let img = firstHiddenInput.files[0];
-    if (img) {
-      let reader = new FileReader();
-      reader.onload = function (event) {
-        let imgData = event.target.result;
-        postFetch("user1", firstInput.value, "firstUser", imgData);
-      };
-      reader.readAsDataURL(img);
+  if (checkEdit === false) {
+    if (firstInput.value || firstHiddenInput.files[0]) {
+      let img = firstHiddenInput.files[0];
+      if (img) {
+        let reader = new FileReader();
+        reader.onload = function (event) {
+          let imgData = event.target.result;
+          postFetch("user1", firstInput.value, "firstUser", imgData);
+        };
+        reader.readAsDataURL(img);
+      } else {
+        postFetch("user1", firstInput.value, "firstUser");
+      }
     } else {
-      postFetch("user1", firstInput.value, "firstUser");
+      console.log("xabar mavjud emas");
     }
-  } else {
-    console.log("xabar mavjud emas");
   }
 });
 
@@ -166,25 +241,56 @@ secondImg.addEventListener("click", () => {
   secondHiddenInput.click();
 });
 
-// password
+// modal
 
-let forPassword = document.querySelector(".forPassword");
-let passCode = document.querySelector("#passCode");
-let passBtn = document.querySelector("#passBtn");
+let deleteBtn = document.getElementById("deleteBtn");
+let editBtn = document.getElementById("editBtn");
+const modal = document.getElementById("modal");
+let deleteId = null;
+let editId = null;
 
-if (localStorage.getItem("token")) {
-  forPassword.style.display = "none";
-}
-passBtn.addEventListener("click", (e) => {
-  e.preventDefault();
-  if (localStorage.getItem("token") === "token") {
-    forPassword.style.display = "none";
-  } else {
-    if (passCode.value === "telegram") {
-      localStorage.setItem("token", "token");
-      forPassword.style.display = "none";
-    }
-    console.log("password: telegram");
-    passCode.value = "";
+document.addEventListener("contextmenu", (event) => {
+  event.preventDefault();
+
+  if (event.target.classList.contains("p")) {
+    deleteId = event.target.dataset.id;
+    editId = event.target.dataset.id;
+    modal.style.display = "flex";
+    modal.style.left = `${event.pageX}px`;
+    modal.style.top = `${event.pageY}px`;
   }
 });
+
+deleteBtn.addEventListener("click", () => {
+  if (deleteId) {
+    deleteFetch(deleteId);
+    deleteId = null;
+  }
+});
+
+editBtn.addEventListener("click", () => {
+  async function additionFunc(editId) {
+    let data = await getFetch(editId);
+    firstInput.value = data.message;
+    checkEdit = true;
+    firstSendBtn.addEventListener("click", () => {
+      editFetch(editId, data.name, firstInput.value, data.img);
+    });
+  }
+  additionFunc(editId);
+  checkEdit = false;
+});
+
+modal.addEventListener("click", (event) => {
+  event.stopPropagation();
+});
+
+document.addEventListener(
+  "click",
+  () => {
+    modal.style.display = "none";
+  },
+  true
+);
+
+// -----------------------------------------------------
