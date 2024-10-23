@@ -216,20 +216,22 @@ firstSendBtn.addEventListener("click", (e) => {
 });
 
 secondSendBtn.addEventListener("click", (e) => {
-  if (secondInput.value || secondHiddenInput.files[0]) {
-    let img = secondHiddenInput.files[0];
-    if (img) {
-      let reader = new FileReader();
-      reader.onload = function (event) {
-        let imgData = event.target.result;
-        postFetch("user1", secondInput.value, "secondUser", imgData);
-      };
-      reader.readAsDataURL(img);
+  if (checkEdit === false) {
+    if (secondInput.value || secondHiddenInput.files[0]) {
+      let img = secondHiddenInput.files[0];
+      if (img) {
+        let reader = new FileReader();
+        reader.onload = function (event) {
+          let imgData = event.target.result;
+          postFetch("user1", secondInput.value, "secondUser", imgData);
+        };
+        reader.readAsDataURL(img);
+      } else {
+        postFetch("user1", secondInput.value, "secondUser");
+      }
     } else {
-      postFetch("user1", secondInput.value, "secondUser");
+      console.log("xabar mavjud emas");
     }
-  } else {
-    console.log("xabar mavjud emas");
   }
 });
 
@@ -270,11 +272,30 @@ deleteBtn.addEventListener("click", () => {
 
 editBtn.addEventListener("click", () => {
   async function additionFunc(editId) {
+    let newImg = null;
     let data = await getFetch(editId);
-    firstInput.value = data.message;
+    if (data.name === "firstUser") {
+      firstInput.value = data.message;
+    } else {
+      secondInput.value = data.message;
+    }
+    let img = firstHiddenInput.files[0];
+    if (img) {
+      let reader = new FileReader();
+      reader.onload = function (event) {
+        let imgData = event.target.result;
+        newImg = imgData;
+      };
+      reader.readAsDataURL(img);
+    } else {
+      newImg = data.img;
+    }
     checkEdit = true;
     firstSendBtn.addEventListener("click", () => {
-      editFetch(editId, data.name, firstInput.value, data.img);
+      editFetch(editId, data.name, firstInput.value, newImg);
+    });
+    secondSendBtn.addEventListener("click", () => {
+      editFetch(editId, data.name, secondInput.value, data.img);
     });
   }
   additionFunc(editId);
