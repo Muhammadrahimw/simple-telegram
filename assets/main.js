@@ -138,6 +138,34 @@ async function getFetch(id) {
   }
 }
 
+// qo'shimcha code
+
+async function deleteAllData() {
+  try {
+    const response = await fetch("http://localhost:3000/user1");
+    const data = await response.json();
+
+    const deletePromise = data.map((item) => {
+      return fetch(`http://localhost:3000/user1/${item.id}`, {
+        method: "DELETE",
+      }).then((deleteResponse) => {
+        if (deleteResponse.ok) {
+          console.log(`muvaffaqiyatli o'chirildi`);
+        } else {
+          console.log(`afsuski o'chirilmadi :(`);
+        }
+      });
+    });
+
+    await Promise.all(deletePromise);
+    console.log("Barcha ma'lumotlar muvaffaqiyatli o'chirildi");
+  } catch (error) {
+    console.error(error + ":(");
+  }
+}
+
+// qo'shimcha code
+
 function createMessage(
   newElement,
   value,
@@ -148,8 +176,23 @@ function createMessage(
   img,
   id
 ) {
+  if (value === `/clear`) {
+    return;
+  }
+  if (value.length > 20) {
+    let newStr = "";
+    let num = 30;
+    for (let i = 0; value.length > i; i++) {
+      if (i === num) {
+        newStr += `<br>`;
+        num += 30;
+      }
+      newStr += value[i];
+    }
+    value = newStr;
+  }
   newElement = document.createElement(`${newElement}`);
-  newElement.textContent = value;
+  newElement.innerHTML = value;
   newElement.classList.add("p");
   newElement.setAttribute(`data-id`, id);
   let newTimeElement = document.createElement("span");
@@ -213,6 +256,9 @@ fetchFunc("user1");
 firstSendBtn.addEventListener("click", (e) => {
   if (checkEdit === false) {
     if (firstInput.value || firstHiddenInput.files[0]) {
+      if (firstInput.value === `/clear`) {
+        deleteAllData();
+      }
       let img = firstHiddenInput.files[0];
       if (img) {
         let reader = new FileReader();
@@ -233,6 +279,9 @@ firstSendBtn.addEventListener("click", (e) => {
 secondSendBtn.addEventListener("click", (e) => {
   if (checkEdit === false) {
     if (secondInput.value || secondHiddenInput.files[0]) {
+      if (secondInput.value === `/clear`) {
+        deleteAllData();
+      }
       let img = secondHiddenInput.files[0];
       if (img) {
         let reader = new FileReader();
