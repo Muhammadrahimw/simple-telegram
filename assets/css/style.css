@@ -177,8 +177,8 @@ main {
 .passContainer input {
   width: 100%;
   height: 60px;
-  border-radius: 0.5em;
-  font-size: 1.25em;
+  border-radius: 0.25em;
+  font-size: 1.5em;
   padding-left: 1em;
   border: none;
   outline: none;
@@ -186,8 +186,8 @@ main {
 .passContainer button {
   width: 100%;
   height: 60px;
-  border-radius: 0.5em;
-  font-size: 1.25em;
+  border-radius: 0.25em;
+  font-size: 1.5em;
   border: none;
   outline: none;
   font-weight: 500;
@@ -198,6 +198,13 @@ main {
   font-size: 1.25em;
   font-weight: 400;
   color: rgb(255, 255, 255);
+  cursor: pointer;
+}
+.passContainer #passCode {
+  display: block;
+}
+.passContainer #passNumber {
+  display: none;
 }
 
 #closeLockIcon {
@@ -224,6 +231,68 @@ main {
   font-size: 1.25em;
   width: 4em;
   height: 1.5em;
+}
+
+.loginMain {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100vh;
+  background-color: rgb(33, 33, 33);
+}
+.loginMain .loginContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  gap: 0.5em;
+  transform: translateY(5%);
+}
+.loginMain .loginContainer i {
+  scale: 5;
+  color: rgb(52, 169, 229);
+  cursor: default;
+}
+.loginMain .loginContainer h1 {
+  font-size: 3em;
+  font-weight: 500;
+  color: white;
+  margin-top: 1.5em;
+}
+.loginMain .loginContainer p {
+  color: white;
+  text-align: center;
+  font-size: 1.1em;
+  letter-spacing: 1px;
+}
+.loginMain .loginContainer form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+  margin-top: 0.75em;
+  width: 22%;
+}
+.loginMain .loginContainer form input {
+  height: 50px;
+  border-radius: 0.35em;
+  padding-left: 1em;
+  font-size: 1.1em;
+  outline: none;
+  background-color: transparent;
+  border: 1px solid rgba(128, 128, 128, 0.7);
+  color: white;
+}
+.loginMain .loginContainer form button {
+  height: 50px;
+  border-radius: 0.35em;
+  font-size: 1.1em;
+  letter-spacing: 0.75px;
+  background-color: transparent;
+  border: 1px solid rgba(128, 128, 128, 0.7);
+  background-color: rgb(52, 169, 229);
+  color: white;
+  cursor: pointer;
 }
 
 /*# sourceMappingURL=style.css.map */

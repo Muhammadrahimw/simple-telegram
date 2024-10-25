@@ -1,20 +1,32 @@
 let forPassword = document.querySelector(".forPassword");
 let passCode = document.querySelector("#passCode");
+let passNumber = document.querySelector("#passNumber");
 let passBtn = document.querySelector("#passBtn");
+let logPhone = document.querySelector("#loggingPhone");
 let lockIcon = document.querySelector("#openLockIcon");
 let lokedIcon = document.querySelector("#closeLockIcon");
 let searchInput = document.querySelector("#searchInput");
+let logOut = document.querySelector("#logOut");
+let loginPassword = localStorage.getItem("loginToken");
+let loginPhone = localStorage.getItem("login");
+let securityData = null;
 
-if (localStorage.getItem("token")) {
+if (localStorage.getItem("loginToken")) {
   forPassword.style.display = "none";
+} else if (localStorage.getItem("login")) {
+  forPassword.style.display = "flex";
+} else {
+  window.location.href = `./login.html`;
 }
+
 passBtn.addEventListener("click", (e) => {
   e.preventDefault();
-  if (localStorage.getItem("token") === "token") {
+  if (localStorage.getItem("loginToken") === "token") {
     forPassword.style.display = "none";
   } else {
-    if (passCode.value === "telegram") {
-      localStorage.setItem("token", "token");
+    if (passCode.value === loginPassword) {
+      localStorage.setItem("loginToken", loginPassword);
+      localStorage.setItem("login", loginPhone);
       forPassword.style.display = "none";
       lockIcon.style.display = "block";
       lokedIcon.style.display = "none";
@@ -24,14 +36,55 @@ passBtn.addEventListener("click", (e) => {
   }
 });
 
+passBtn.addEventListener("click", () => {
+  getSecurityData().then((data) => {
+    data.forEach((item) => {
+      if (passNumber.value === item.phoneNumber) {
+        forPassword.style.display = "none";
+        localStorage.setItem("loginToken", item.password);
+        localStorage.setItem("login", item.phoneNumber);
+        // window.location();
+        lockIcon.style.display = "block";
+        lokedIcon.style.display = "none";
+      }
+    });
+  });
+});
+
 lockIcon.addEventListener("click", () => {
   lockIcon.style.display = "none";
   lokedIcon.style.display = "block";
   setTimeout(() => {
-    localStorage.removeItem("token");
+    localStorage.removeItem("loginToken");
     forPassword.style.display = "flex";
   }, 400);
 });
+
+logPhone.addEventListener("click", () => {
+  if (passCode.style.display === `none`) {
+    passCode.style.display = `block`;
+    passNumber.style.display = `none`;
+    logPhone.textContent = `Enter with phone number`;
+  } else {
+    passCode.style.display = `none`;
+    passNumber.style.display = `block`;
+    logPhone.textContent = `Enter with Password`;
+  }
+});
+
+logOut.addEventListener("click", () => {
+  window.location.href = `./login.html`;
+});
+
+async function getSecurityData() {
+  try {
+    const response = await fetch(`http://localhost:3000/users`);
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.log(error + "Ma'lumot olishda xatolik :(");
+  }
+}
 
 // password
 
