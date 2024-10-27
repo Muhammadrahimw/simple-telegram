@@ -21,6 +21,7 @@
                 <input id="searchInput" placeholder="Search" type="text">
                 <i id="openLockIcon" class="fa-solid fa-unlock fa-lg"></i>
                 <i id="closeLockIcon" class="fa-solid fa-lock fa-lg"></i>
+                <i id="logOutProfile" class="fa-solid fa-arrow-right-from-bracket fa-lg"></i>
             </div>
             <div class="users">
                 <div class="user"></div>
@@ -60,10 +61,13 @@
     </main>
     <div class="forPassword">
         <form class="passContainer">
+            <input id="passNumber" placeholder="Enter phone number" type="text">
+            <input id="passEmail" placeholder="Enter email address" type="text">
             <input id="passCode" placeholder="password" type="password">
-            <input id="passNumber" placeholder="Phone number" type="text">
             <button id="passBtn" type="submit">Log in</button>
-            <p id="loggingPhone">Enter with phone number</p>
+            <p id="logEmail">Try with email address</p>
+            <p id="logPhone">Try with phone number</p>
+            <p id="logOther">Try with other profile</p>
             <p id="logOut" style="font-weight: 400;">Log out if
                 you are not registered</p>
         </form>

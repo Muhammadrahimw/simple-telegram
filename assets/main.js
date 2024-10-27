@@ -1,79 +1,99 @@
 let forPassword = document.querySelector(".forPassword");
 let passCode = document.querySelector("#passCode");
 let passNumber = document.querySelector("#passNumber");
+let passEmail = document.querySelector("#passEmail");
 let passBtn = document.querySelector("#passBtn");
-let logPhone = document.querySelector("#loggingPhone");
+let logPhone = document.querySelector("#logPhone");
+let logEmail = document.querySelector("#logEmail");
+let logOther = document.querySelector("#logOther");
 let lockIcon = document.querySelector("#openLockIcon");
 let lokedIcon = document.querySelector("#closeLockIcon");
 let searchInput = document.querySelector("#searchInput");
 let logOut = document.querySelector("#logOut");
-let loginPassword = localStorage.getItem("loginToken");
-let loginPhone = localStorage.getItem("login");
+let logOutProfile = document.querySelector("#logOutProfile");
 let securityData = null;
 
-if (localStorage.getItem("loginToken")) {
+if (localStorage.getItem("login") && localStorage.getItem("password")) {
   forPassword.style.display = "none";
-} else if (localStorage.getItem("login")) {
-  forPassword.style.display = "flex";
-} else {
-  window.location.href = `./login.html`;
 }
 
-passBtn.addEventListener("click", (e) => {
-  e.preventDefault();
-  if (localStorage.getItem("loginToken") === "token") {
-    forPassword.style.display = "none";
-  } else {
-    if (passCode.value === loginPassword) {
-      localStorage.setItem("loginToken", loginPassword);
-      localStorage.setItem("login", loginPhone);
-      forPassword.style.display = "none";
-      lockIcon.style.display = "block";
-      lokedIcon.style.display = "none";
-    }
-    console.log("password: telegram");
-    passCode.value = "";
-  }
+if (localStorage.getItem("login") && !localStorage.getItem("password")) {
+  passNumber.style.display = `none`;
+  logEmail.style.display = `none`;
+  logPhone.style.display = `none`;
+  passEmail.style.display = `none`;
+}
+
+if (!localStorage.getItem("login")) {
+  passNumber.style.display = `block`;
+  logEmail.style.display = `block`;
+  passEmail.style.display = `none`;
+  logOther.style.display = `none`;
+}
+
+if (logEmail.style.display === `block`) {
+  logPhone.style.display = `none`;
+} else {
+  logEmail.style.display = `none`;
+  logPhone.style.display = `block`;
+}
+
+logPhone.style.display = `none`;
+
+if (localStorage.getItem("login") && !localStorage.getItem("password")) {
+  logPhone.style.display = `none`;
+}
+
+logOther.addEventListener("click", () => {
+  localStorage.removeItem("login");
+  logOther.style.display = `none`;
+  passNumber.style.display = `block`;
+  logEmail.style.display = `block`;
 });
 
-passBtn.addEventListener("click", () => {
-  getSecurityData().then((data) => {
-    data.forEach((item) => {
-      if (passNumber.value === item.phoneNumber) {
-        forPassword.style.display = "none";
-        localStorage.setItem("loginToken", item.password);
-        localStorage.setItem("login", item.phoneNumber);
-        // window.location();
-        lockIcon.style.display = "block";
-        lokedIcon.style.display = "none";
-      }
-    });
-  });
-});
-
-lockIcon.addEventListener("click", () => {
-  lockIcon.style.display = "none";
-  lokedIcon.style.display = "block";
-  setTimeout(() => {
-    localStorage.removeItem("loginToken");
-    forPassword.style.display = "flex";
-  }, 400);
+logEmail.addEventListener("click", () => {
+  passNumber.style.display = `none`;
+  passEmail.style.display = `block`;
+  logEmail.style.display = `none`;
+  logPhone.style.display = `block`;
 });
 
 logPhone.addEventListener("click", () => {
-  if (passCode.style.display === `none`) {
-    passCode.style.display = `block`;
-    passNumber.style.display = `none`;
-    logPhone.textContent = `Enter with phone number`;
-  } else {
-    passCode.style.display = `none`;
-    passNumber.style.display = `block`;
-    logPhone.textContent = `Enter with Password`;
-  }
+  passNumber.style.display = `block`;
+  passEmail.style.display = `none`;
+  logEmail.style.display = `block`;
+  logPhone.style.display = `none`;
 });
 
-logOut.addEventListener("click", () => {
-  window.location.href = `./login.html`;
+passBtn.addEventListener("click", () => {
+  if (localStorage.getItem("login")) {
+    getSecurityData().then((data) => {
+      data.forEach((item) => {
+        if (item.phoneNumber === localStorage.getItem("login")) {
+          if (item.password === passCode.value) {
+            forPassword.style.display = `none`;
+            localStorage.setItem("login", item.phoneNumber);
+            localStorage.setItem("password", item.password);
+          }
+        }
+      });
+    });
+  }
+  if (!localStorage.getItem("login")) {
+    getSecurityData().then((data) => {
+      data.forEach((item) => {
+        if (
+          (item.phoneNumber === passNumber.value &&
+            item.password === passCode.value) ||
+          (item.email === passEmail.value && item.password === passCode.value)
+        ) {
+          forPassword.style.display = `none`;
+          localStorage.setItem("login", item.phoneNumber);
+          localStorage.setItem("password", item.password);
+        }
+      });
+    });
+  }
 });
 
 async function getSecurityData() {
@@ -85,6 +105,28 @@ async function getSecurityData() {
     console.log(error + "Ma'lumot olishda xatolik :(");
   }
 }
+
+lockIcon.addEventListener("click", () => {
+  lockIcon.style.display = "none";
+  lokedIcon.style.display = "block";
+  passNumber.style.display = `none`;
+  passEmail.style.display = `none`;
+  setTimeout(() => {
+    localStorage.removeItem("password");
+    forPassword.style.display = "flex";
+  }, 400);
+});
+
+logOut.addEventListener("click", () => {
+  localStorage.removeItem("login");
+  window.location.href = `./login.html`;
+});
+
+logOutProfile.addEventListener("click", () => {
+  window.location.href = `./login.html`;
+  localStorage.removeItem("login");
+  localStorage.removeItem("password");
+});
 
 // password
 

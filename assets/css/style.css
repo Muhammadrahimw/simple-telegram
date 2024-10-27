@@ -203,7 +203,8 @@ main {
 .passContainer #passCode {
   display: block;
 }
-.passContainer #passNumber {
+
+#logPhone {
   display: none;
 }
 
@@ -293,6 +294,18 @@ main {
   background-color: rgb(52, 169, 229);
   color: white;
   cursor: pointer;
+}
+
+.loginBtns {
+  width: 100%;
+  display: flex;
+  gap: 0.5em;
+}
+.loginBtns button:nth-child(1) {
+  width: 75%;
+}
+.loginBtns button:nth-child(2) {
+  width: 25%;
 }
 
 /*# sourceMappingURL=style.css.map */

@@ -4,9 +4,10 @@ let regNumberInput = document.querySelector("#registerNumber");
 let regMailInput = document.querySelector("#registerEmail");
 let regPassInput = document.querySelector("#registerPassword");
 let regSubmit = document.querySelector("#registerSubmit");
+let loginBtn = document.querySelector("#loginBtn");
 let userInfo = {};
 
-if (localStorage.getItem("loginToken")) {
+if (localStorage.getItem("password")) {
   window.location.href = `./index.html`;
 }
 
@@ -33,8 +34,8 @@ function checkUserInfo(phone, mail, password, userInfo) {
     if (!checkPhoneAvailable && !checkMailAvailable) {
       addUserInfo(userInfo);
       console.log("Muvaffaqiyatli ro'yxatdan o'tildi");
-      localStorage.setItem("loginToken", password);
       localStorage.setItem("login", phone);
+      localStorage.setItem("password", password);
       window.location.href = `./index.html`;
     }
   });
@@ -91,4 +92,8 @@ loginForm.addEventListener("submit", (e) => {
       alert(`Email formatini to'g'ri kiriting!`);
     }
   }
+});
+
+loginBtn.addEventListener("click", () => {
+  window.location.href = "./index.html";
 });
