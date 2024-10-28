@@ -60,6 +60,7 @@ main {
         align-items: center;
 
         .userLogo {
+            background-image: url(../elements/telegram.svg);
             background-repeat: no-repeat;
             background-size: contain;
             background-position: center;
@@ -84,6 +85,7 @@ main {
             align-items: flex-start;
             backdrop-filter: blur(5px);
             transition: 0.3s;
+            z-index: 100;
 
             #userInfoModal {
                 min-width: 30%;
@@ -278,6 +280,10 @@ main {
     }
 }
 
+#updateUserLogo {
+    display: none;
+}
+
 // #userNewPhoneInput {
 //     width: 100%;
 //     height: 100%;
@@ -290,6 +296,16 @@ main {
 // #userNewPhoneAccept {
 //     width: 100px;
 //     height: 100%;
+// }
+
+// .profilePhotos {
+//     display: none;
+//     position: fixed;
+//     width: 100%;
+//     height: 100vh;
+//     background-color: rgba(0, 0, 0, 0.3);
+//     top: 0;
+//     left: 0;
 // }
 
 // scroll

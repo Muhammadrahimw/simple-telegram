@@ -29,6 +29,8 @@ if (!localStorage.getItem("login")) {
   logEmail.style.display = `block`;
   passEmail.style.display = `none`;
   logOther.style.display = `none`;
+  forPassword.style.display = `flex`;
+  // window.location.href = `./login.html`;
 }
 
 if (logEmail.style.display === `block`) {
@@ -159,17 +161,17 @@ userInfoModalClose.addEventListener("click", () => {
 getFetchUserInfo().then((data) => {
   data.forEach((item) => {
     if (item.phoneNumber === localStorage.getItem("login")) {
+      if (item.photo !== null) {
+        userLogo.style.cssText = `background-image: url(${item.photo});`;
+        userLogoModal.style.cssText = `background-image: url(${item.photo});`;
+      }
       userModalName.textContent = item.userName;
       userModalPhoneNumber.textContent = item.phoneNumber;
       userModalEmailAddress.textContent = item.email;
       userModalPassword.textContent = item.password;
-      userLogo.style.cssText = `background-image: url(${item.photo});`;
-      userLogoModal.style.cssText = `background-image: url(${item.photo});`;
     }
   });
 });
-
-// console.log(userLogo);
 
 // profile
 
@@ -186,6 +188,7 @@ let secondHiddenInput = document.getElementById("hidden_input_2");
 let id = 0;
 let fetchData = null;
 let checkEdit = false;
+let profilePhotoViewBig = document.querySelector(".profilePhotoViewBig");
 
 function timeFunc() {
   let time = new Date();
@@ -201,7 +204,6 @@ async function fetchFunc(user) {
     let response = await fetch(`http://localhost:3000/${user}`);
     fetchData = await response.json();
     getData(fetchData);
-    // id = fetchData.length;
     id = String(Date.now());
   } catch (error) {
     console.log(error + ":(");
@@ -275,6 +277,10 @@ async function getFetch(id) {
     console.log(error + " Ma'lumot yo'q :(");
   }
 }
+
+// userLogo.addEventListener("click", () => {
+//   profilePhotoViewBig.display = `block`;
+// });
 
 // qo'shimcha code
 
