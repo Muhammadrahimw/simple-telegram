@@ -70,6 +70,118 @@ main {
   width: 100%;
   height: 70px;
   border-bottom: 1px solid rgba(128, 128, 128, 0.2);
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 0.5em;
+  align-items: center;
+}
+.right .head .userLogo {
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+.right .head .userLogo:hover {
+  opacity: 0.6;
+}
+.right .head .userInfoModalContainer {
+  position: fixed;
+  top: -200%;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  backdrop-filter: blur(5px);
+  transition: 0.3s;
+}
+.right .head .userInfoModalContainer #userInfoModal {
+  min-width: 30%;
+  min-height: 10vh;
+  background-color: rgb(255, 255, 255);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+  font-size: 1.25em;
+  padding: 1em;
+  margin-top: 1em;
+  border-radius: 5px;
+}
+.right .head .userInfoModalContainer #userInfoModal hr {
+  border: 1px solid rgb(194, 194, 194);
+}
+.right .head .userInfoModalContainer #userInfoModal div:nth-child(1) {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.right .head .userInfoModalContainer #userInfoModal div:nth-child(2) {
+  display: flex;
+  align-items: center;
+  gap: 1em;
+  padding: 1em 0;
+}
+.right .head .userInfoModalContainer #userInfoModal div:nth-child(2) p {
+  padding: 10px 10px;
+  border-radius: 5px;
+  width: 100%;
+}
+.right .head .userInfoModalContainer #userInfoModal div:nth-child(2) p:hover {
+  background-color: rgba(128, 128, 128, 0.08);
+  cursor: pointer;
+}
+.right .head .userInfoModalContainer #userInfoModal div:nth-child(2) .userLogoModalContainer .userLogoModal {
+  background-image: url(../elements/telegram.svg);
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+}
+.right .head .userInfoModalContainer #userInfoModal div:nth-child(2) .userLogoModalContainer .userLogoModal:hover {
+  opacity: 0.7;
+  cursor: pointer;
+}
+.right .head .userInfoModalContainer #userInfoModal div:nth-of-type(3) {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2em;
+  padding: 15px 10px;
+  border-radius: 5px;
+}
+.right .head .userInfoModalContainer #userInfoModal div:nth-of-type(3):hover {
+  background-color: rgba(128, 128, 128, 0.08);
+  cursor: pointer;
+}
+.right .head .userInfoModalContainer #userInfoModal div:nth-of-type(4) {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2em;
+  padding: 15px 10px;
+  border-radius: 5px;
+}
+.right .head .userInfoModalContainer #userInfoModal div:nth-of-type(4):hover {
+  background-color: rgba(128, 128, 128, 0.08);
+  cursor: pointer;
+}
+.right .head .userInfoModalContainer #userInfoModal div:nth-of-type(5) {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2em;
+  padding: 15px 10px;
+  border-radius: 5px;
+}
+.right .head .userInfoModalContainer #userInfoModal div:nth-of-type(5):hover {
+  background-color: rgba(128, 128, 128, 0.08);
+  cursor: pointer;
 }
 .right .first_screen {
   width: 100%;
@@ -124,6 +236,34 @@ main {
 .right .sending #hidden_input_1,
 .right .sending #hidden_input_2 {
   display: none;
+}
+
+.userNewInfoInputContainer {
+  margin-top: 1.5em;
+  display: flex;
+  flex-direction: column;
+  width: 30%;
+  height: 90px;
+  background-color: rgb(224, 224, 224);
+  padding: 0.15em;
+  border-radius: 5px;
+  position: fixed;
+  top: 10em;
+}
+.userNewInfoInputContainer input {
+  height: 100%;
+  outline: none;
+  border: 1px solid rgba(128, 128, 128, 0.4);
+  border-radius: 5px;
+  font-size: 1.25em;
+  padding-left: 0.5em;
+}
+.userNewInfoInputContainer button {
+  height: 100%;
+  border: 1px solid rgba(128, 128, 128, 0.4);
+  border-radius: 5px;
+  font-size: 1.25em;
+  cursor: pointer;
 }
 
 .scrollable {
@@ -248,18 +388,11 @@ main {
   align-items: center;
   width: 100%;
   gap: 0.5em;
-  transform: translateY(5%);
-}
-.loginMain .loginContainer i {
-  scale: 5;
-  color: rgb(52, 169, 229);
-  cursor: default;
 }
 .loginMain .loginContainer h1 {
   font-size: 3em;
   font-weight: 500;
   color: white;
-  margin-top: 1.5em;
 }
 .loginMain .loginContainer p {
   color: white;
@@ -306,6 +439,22 @@ main {
 }
 .loginBtns button:nth-child(2) {
   width: 25%;
+}
+
+#registerLoadPhoto {
+  display: none;
+}
+
+#registerViewPhoto {
+  background-color: red;
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  cursor: pointer;
+  background-image: url(../elements/telegram.svg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
 }
 
 /*# sourceMappingURL=style.css.map */

@@ -9,7 +9,6 @@ main {
 .left {
     width: 25%;
     height: 670px;
-    // height: calc(100vh - 50px);
     padding: 1em;
 
     .head {
@@ -49,14 +48,140 @@ main {
     align-items: flex-start;
     gap: 1em;
     width: 75%;
-    // height: calc(100vh - 32px);
     height: 670px;
-
 
     .head {
         width: 100%;
         height: 70px;
         border-bottom: 1px solid rgba(128, 128, 128, 0.2);
+        display: flex;
+        justify-content: flex-end;
+        padding-right: 0.5em;
+        align-items: center;
+
+        .userLogo {
+            background-repeat: no-repeat;
+            background-size: contain;
+            background-position: center;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            cursor: pointer;
+
+            &:hover {
+                opacity: 0.6;
+            }
+        }
+
+        .userInfoModalContainer {
+            position: fixed;
+            top: -200%;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            backdrop-filter: blur(5px);
+            transition: 0.3s;
+
+            #userInfoModal {
+                min-width: 30%;
+                min-height: 10vh;
+                background-color: rgb(255, 255, 255);
+                display: flex;
+                flex-direction: column;
+                gap: 0.5em;
+                font-size: 1.25em;
+                padding: 1em;
+                margin-top: 1em;
+                border-radius: 5px;
+
+                hr {
+                    border: 1px solid rgb(194, 194, 194);
+                }
+
+                div {
+
+                    &:nth-child(1) {
+                        @include btw;
+                    }
+
+                    &:nth-child(2) {
+                        display: flex;
+                        align-items: center;
+                        gap: 1em;
+                        padding: 1em 0;
+
+                        p {
+                            padding: 10px 10px;
+                            border-radius: 5px;
+                            width: 100%;
+
+                            &:hover {
+                                background-color: rgba(128, 128, 128, 0.08);
+                                cursor: pointer;
+                            }
+                        }
+
+                        .userLogoModalContainer {
+                            .userLogoModal {
+                                background-image: url(../elements/telegram.svg);
+                                width: 60px;
+                                height: 60px;
+                                border-radius: 50%;
+                                background-repeat: no-repeat;
+                                background-size: contain;
+                                background-position: center;
+
+                                &:hover {
+                                    opacity: 0.7;
+                                    cursor: pointer;
+                                }
+                            }
+                        }
+                    }
+
+                    &:nth-of-type(3) {
+                        @include btw;
+                        gap: 2em;
+                        padding: 15px 10px;
+                        border-radius: 5px;
+
+                        &:hover {
+                            background-color: rgba(128, 128, 128, 0.08);
+                            cursor: pointer;
+                        }
+                    }
+
+                    &:nth-of-type(4) {
+                        @include btw;
+                        gap: 2em;
+                        padding: 15px 10px;
+                        border-radius: 5px;
+
+                        &:hover {
+                            background-color: rgba(128, 128, 128, 0.08);
+                            cursor: pointer;
+                        }
+                    }
+
+                    &:nth-of-type(5) {
+                        @include btw;
+                        gap: 2em;
+                        padding: 15px 10px;
+                        border-radius: 5px;
+
+                        &:hover {
+                            background-color: rgba(128, 128, 128, 0.08);
+                            cursor: pointer;
+                        }
+                    }
+                }
+
+            }
+        }
+
     }
 
     .first_screen {
@@ -120,6 +245,52 @@ main {
         }
     }
 }
+
+.userNewInfoInputContainer {
+    margin-top: 1.5em;
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+    height: 90px;
+    background-color: rgb(224, 224, 224);
+    padding: 0.15em;
+    border-radius: 5px;
+    position: fixed;
+    top: 10em;
+
+    // left: 50;
+
+    input {
+        height: 100%;
+        outline: none;
+        border: 1px solid rgba(128, 128, 128, 0.4);
+        border-radius: 5px;
+        font-size: 1.25em;
+        padding-left: 0.5em;
+    }
+
+    button {
+        height: 100%;
+        border: 1px solid rgba(128, 128, 128, 0.4);
+        border-radius: 5px;
+        font-size: 1.25em;
+        cursor: pointer;
+    }
+}
+
+// #userNewPhoneInput {
+//     width: 100%;
+//     height: 100%;
+//     outline: none;
+//     border: 1px solid rgba(128, 128, 128, 0.4);
+//     border-radius: 5px;
+//     font-size: 1em;
+// }
+
+// #userNewPhoneAccept {
+//     width: 100px;
+//     height: 100%;
+// }
 
 // scroll
 .scrollable {

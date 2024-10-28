@@ -12,19 +12,11 @@
         align-items: center;
         width: 100%;
         gap: 0.5em;
-        transform: translateY(5%);
-
-        i {
-            scale: 5;
-            color: rgb(52, 169, 229);
-            cursor: default;
-        }
 
         h1 {
             font-size: 3em;
             font-weight: 500;
             color: white;
-            margin-top: 1.5em;
         }
 
         p {
@@ -81,4 +73,20 @@
             width: 25%;
         }
     }
+}
+
+#registerLoadPhoto {
+    display: none;
+}
+
+#registerViewPhoto {
+    background-color: red;
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    cursor: pointer;
+    background-image: url(../elements/telegram.svg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
 }

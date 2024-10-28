@@ -1,33 +1,4 @@
 {
   "user1": [],
-  "users": [
-    {
-      "id": "389c",
-      "userName": "Muhammadrahim",
-      "phoneNumber": "8910575377",
-      "email": "muqalla21@gmail.com",
-      "password": "111"
-    },
-    {
-      "id": "0bbc",
-      "userName": "Muhammadrahim2",
-      "phoneNumber": "89105753772",
-      "email": "muqalla21@gmail.com2",
-      "password": "222"
-    },
-    {
-      "id": "a793",
-      "userName": "Muhammadrahim3",
-      "phoneNumber": "89105753773",
-      "email": "muqalla21@gmail.com3",
-      "password": "333"
-    },
-    {
-      "id": "bb08",
-      "userName": "Muhammadrahim4",
-      "phoneNumber": "89105753774",
-      "email": "muqalla21@gmail.com4",
-      "password": "444"
-    }
-  ]
+  "users": []
 }

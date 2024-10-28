@@ -6,6 +6,7 @@ let regPassInput = document.querySelector("#registerPassword");
 let regSubmit = document.querySelector("#registerSubmit");
 let loginBtn = document.querySelector("#loginBtn");
 let userInfo = {};
+let imgData = null;
 
 if (localStorage.getItem("password")) {
   window.location.href = `./index.html`;
@@ -67,6 +68,31 @@ function addUserInfo(userInfo) {
     });
 }
 
+loginBtn.addEventListener("click", () => {
+  window.location.href = "./index.html";
+});
+
+let registerLoadPhoto = document.getElementById("registerLoadPhoto");
+let registerViewPhoto = document.getElementById("registerViewPhoto");
+
+registerViewPhoto.addEventListener("click", () => {
+  registerLoadPhoto.click();
+});
+
+registerLoadPhoto.addEventListener("change", () => {
+  if (registerLoadPhoto.files && registerLoadPhoto.files.length > 0) {
+    let img = registerLoadPhoto.files[0];
+    let reader = new FileReader();
+
+    reader.onload = function (event) {
+      imgData = event.target.result;
+      registerViewPhoto.style.backgroundImage = `url(${imgData})`;
+    };
+
+    reader.readAsDataURL(img);
+  }
+});
+
 loginForm.addEventListener("submit", (e) => {
   e.preventDefault();
   let regax = /@.*com/g;
@@ -81,6 +107,7 @@ loginForm.addEventListener("submit", (e) => {
         phoneNumber: regNumberInput.value,
         email: regMailInput.value,
         password: regPassInput.value,
+        photo: imgData,
       };
       checkUserInfo(
         regNumberInput.value,
@@ -92,8 +119,4 @@ loginForm.addEventListener("submit", (e) => {
       alert(`Email formatini to'g'ri kiriting!`);
     }
   }
-});
-
-loginBtn.addEventListener("click", () => {
-  window.location.href = "./index.html";
 });

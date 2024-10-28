@@ -130,6 +130,49 @@ logOutProfile.addEventListener("click", () => {
 
 // password
 
+async function getFetchUserInfo() {
+  try {
+    let info = await fetch(`http://localhost:3000/users`);
+    let data = await info.json();
+    return data;
+  } catch (error) {
+    console.log(error + " Ma'lumot yo'q :(");
+  }
+}
+
+let userLogo = document.querySelector(".userLogo");
+let userInfoModalContainer = document.querySelector(".userInfoModalContainer");
+let userLogoModal = document.querySelector(".userLogoModal");
+let userModalName = document.querySelector("#userModalName");
+let userModalPhoneNumber = document.querySelector("#userModalPhoneNumber");
+let userModalEmailAddress = document.querySelector("#userModalEmailAddress");
+let userModalPassword = document.querySelector("#userModalPassword");
+
+userLogo.addEventListener("click", () => {
+  userInfoModalContainer.style.top = 0;
+});
+
+userInfoModalClose.addEventListener("click", () => {
+  userInfoModalContainer.style.top = -200 + "%";
+});
+
+getFetchUserInfo().then((data) => {
+  data.forEach((item) => {
+    if (item.phoneNumber === localStorage.getItem("login")) {
+      userModalName.textContent = item.userName;
+      userModalPhoneNumber.textContent = item.phoneNumber;
+      userModalEmailAddress.textContent = item.email;
+      userModalPassword.textContent = item.password;
+      userLogo.style.cssText = `background-image: url(${item.photo});`;
+      userLogoModal.style.cssText = `background-image: url(${item.photo});`;
+    }
+  });
+});
+
+// console.log(userLogo);
+
+// profile
+
 let firstInput = document.getElementById("user_1_message");
 let secondInput = document.getElementById("user_2_message");
 let firstSendBtn = document.getElementById("send_icon_1");
@@ -490,7 +533,7 @@ let left = document.querySelector(".left");
 let right = document.querySelector(".right");
 
 bars.addEventListener("click", () => {
-  if (left.style.width === 7 + "%") {
+  if (left.style.width === 8 + "%") {
     searchInput.style.display = `block`;
     localStorage.setItem("bars", "big");
     left.style.cssText = `width: 25%; transition: 0.2s;`;
@@ -498,15 +541,15 @@ bars.addEventListener("click", () => {
   } else {
     searchInput.style.display = `none`;
     localStorage.setItem("bars", "small");
-    left.style.cssText = `width: 7%; transition: 0.2s;`;
-    right.style.cssText = `width: 93%; transition: 0.2s;`;
+    left.style.cssText = `width: 8%; transition: 0.2s;`;
+    right.style.cssText = `width: 92%; transition: 0.2s;`;
   }
 });
 
 if (localStorage.getItem("bars") === "small") {
   searchInput.style.display = `none`;
-  left.style.cssText = `width: 7%; transition: 0.2s;`;
-  right.style.cssText = `width: 93%; transition: 0.2s;`;
+  left.style.cssText = `width: 8%; transition: 0.2s;`;
+  right.style.cssText = `width: 92%; transition: 0.2s;`;
 } else {
   searchInput.style.display = `block`;
   left.style.cssText = `width: 25%; transition: 0.2s;`;

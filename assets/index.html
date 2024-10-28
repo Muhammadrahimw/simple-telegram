@@ -36,7 +36,53 @@
         </div>
         <div class="right">
             <div class="first_screen">
-                <div class="head"></div>
+                <div class="head">
+                    <div class="userLogo"></div>
+                    <div class="userInfoModalContainer">
+                        <form id="userInfoModal">
+                            <div>
+                                <p>Your info</p>
+                                <i id="userInfoModalClose" class="fa-solid fa-xmark fa-lg"></i>
+                            </div>
+                            <div>
+                                <div class="userLogoModalContainer">
+                                    <div class="userLogoModal"></div>
+                                </div>
+                                <p id="userModalName"></p>
+                            </div>
+                            <hr>
+                            <div>
+                                <p>Your phone number</p>
+                                <p id="userModalPhoneNumber"></p>
+                            </div>
+                            <div>
+                                <p>Your email address</p>
+                                <p id="userModalEmailAddress"></p>
+                            </div>
+                            <div>
+                                <p>Your password</p>
+                                <p id="userModalPassword"></p>
+                            </div>
+                        </form>
+                        <!-- ma'lumotlarni tahrirlash uchun modallar -->
+                        <!-- <div class="userNewInfoInputContainer" id="userNewNameContainer">
+                            <input id="userNewNameInput" placeholder="Enter new name" type="text">
+                            <button id="userNewNameAccept">Accept</button>
+                        </div>
+                        <div class="userNewInfoInputContainer" id="userNewPhoneContainer">
+                            <input id="userNewPhoneInput" placeholder="Enter new phone number" type="text">
+                            <button id="userNewPhoneAccept">Accept</button>
+                        </div>
+                        <div class="userNewInfoInputContainer" id="userNewEmailContainer">
+                            <input id="userNewEmailInput" placeholder="Enter new email" type="text">
+                            <button id="userNewEmailAccept">Accept</button>
+                        </div>
+                        <div class="userNewInfoInputContainer" id="userNewPasswordContainer">
+                            <input id="userNewPasswordInput" placeholder="Enter password" type="text">
+                            <button id="userNewPasswordAccept">Accept</button>
+                        </div> -->
+                    </div>
+                </div>
                 <div id="first_message" class="messages scrollable"></div>
                 <div class="sending">
                     <input id="hidden_input_1" type="file">
