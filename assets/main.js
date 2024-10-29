@@ -30,7 +30,6 @@ if (!localStorage.getItem("login")) {
   passEmail.style.display = `none`;
   logOther.style.display = `none`;
   forPassword.style.display = `flex`;
-  // window.location.href = `./login.html`;
 }
 
 if (logEmail.style.display === `block`) {
@@ -142,6 +141,34 @@ async function getFetchUserInfo() {
   }
 }
 
+function editFetchUser(
+  id,
+  NewUserName,
+  newPhoneNumber,
+  newEmail,
+  newPassword,
+  newPhoto
+) {
+  fetch(`http://localhost:3000/users/${id}`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      userName: NewUserName,
+      phoneNumber: newPhoneNumber,
+      email: newEmail,
+      password: newPassword,
+      photo: newPhoto,
+    }),
+  })
+    .then((data) => data.json())
+    .then(() => {
+      console.log("muvaffaqiyatli yangilandi");
+    })
+    .catch((error) => {
+      console.log(error + " yangilashda xatolik yuz berdi :(");
+    });
+}
+
 let userLogo = document.querySelector(".userLogo");
 let userInfoModalContainer = document.querySelector(".userInfoModalContainer");
 let userLogoModal = document.querySelector(".userLogoModal");
@@ -171,6 +198,111 @@ getFetchUserInfo().then((data) => {
       userModalPassword.textContent = item.password;
     }
   });
+});
+
+// userLogo.addEventListener("click", () => {
+//   profilePhotoViewBig.display = `block`;
+// });
+
+let userNewInfoInputContainer = document.querySelector(
+  ".userNewInfoInputContainer"
+);
+let userOldPasswordChecker = document.querySelector("#userOldPasswordChecker");
+let userNewPasswordChecker = document.querySelector("#userNewPasswordChecker");
+let userOldPasswordInput = document.querySelector("#userOldPasswordInput");
+let userNewPasswordInput = document.querySelector("#userNewPasswordInput");
+let userNewPasswordAcceptInput = document.querySelector(
+  "#userNewPasswordAcceptInput"
+);
+let userNewPasswordAccept = document.querySelector("#userNewPasswordAccept");
+
+let previewPassword =
+  document.querySelector("#userModalPassword").parentElement;
+
+previewPassword.addEventListener("click", () => {
+  userInfoModal.style.display = `none`;
+  userNewInfoInputContainer.style.display = `flex`;
+});
+
+document.addEventListener("keydown", (e) => {
+  if (e.key === `Escape`) {
+    if (userNewInfoInputContainer.style.display === `flex`) {
+      userNewInfoInputContainer.style.display = `none`;
+      userInfoModal.style.display = `flex`;
+      userOldPasswordInput.value = "";
+      userNewPasswordInput.value = "";
+      userNewPasswordAcceptInput.value = "";
+    } else {
+      userInfoModalContainer.style.top = -200 + "%";
+    }
+  }
+});
+
+userNewPasswordInput.readOnly = true;
+userNewPasswordAcceptInput.readOnly = true;
+userNewPasswordAccept.disabled = true;
+
+userOldPasswordInput.addEventListener("keydown", () => {
+  getFetchUserInfo().then((item) => {
+    item.forEach((value) => {
+      if (value.phoneNumber === localStorage.getItem("login")) {
+        if (userOldPasswordInput.value === value.password) {
+          userOldPasswordChecker.textContent = `Your password is true`;
+          userOldPasswordChecker.style.color = `green`;
+          userNewPasswordInput.readOnly = false;
+          userNewPasswordAcceptInput.readOnly = false;
+        } else {
+          userOldPasswordChecker.textContent = `Your password is incorrect`;
+          userOldPasswordChecker.style.color = `red`;
+          userNewPasswordInput.readOnly = true;
+          userNewPasswordAcceptInput.readOnly = true;
+        }
+      }
+    });
+  });
+});
+
+userNewPasswordInput.addEventListener("input", () => {
+  if (userNewPasswordAcceptInput.value === userNewPasswordInput.value) {
+    userNewPasswordChecker.textContent = `Your password is the same`;
+    userNewPasswordChecker.style.color = `green`;
+    userNewPasswordAccept.disabled = false;
+  } else {
+    userNewPasswordChecker.textContent = `Your password is not the same`;
+    userNewPasswordChecker.style.color = `red`;
+    userNewPasswordAccept.disabled = true;
+  }
+});
+
+userNewPasswordAcceptInput.addEventListener("input", () => {
+  if (userNewPasswordInput.value === userNewPasswordAcceptInput.value) {
+    userNewPasswordChecker.textContent = `Your password is the same`;
+    userNewPasswordChecker.style.color = `green`;
+    userNewPasswordAccept.disabled = false;
+  } else {
+    userNewPasswordChecker.textContent = `Your password is not the same`;
+    userNewPasswordChecker.style.color = `red`;
+    userNewPasswordAccept.disabled = true;
+  }
+});
+
+userNewPasswordAccept.addEventListener("click", () => {
+  if (userNewPasswordInput.value === userNewPasswordAcceptInput.value) {
+    getFetchUserInfo().then((data) =>
+      data.forEach((item) => {
+        if (item.phoneNumber === localStorage.getItem("login")) {
+          editFetchUser(
+            item.id,
+            item.userName,
+            item.phoneNumber,
+            item.email,
+            userNewPasswordInput.value,
+            item.photo
+          );
+        }
+      })
+    );
+  }
 });
 
 // profile
@@ -277,10 +409,6 @@ async function getFetch(id) {
     console.log(error + " Ma'lumot yo'q :(");
   }
 }
-
-// userLogo.addEventListener("click", () => {
-//   profilePhotoViewBig.display = `block`;
-// });
 
 // qo'shimcha code
 

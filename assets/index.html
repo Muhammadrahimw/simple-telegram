@@ -65,23 +65,35 @@
                                 <p id="userModalPassword"></p>
                             </div>
                         </form>
+                        <div class="userNewInfoInputContainer" id="userChangePasswordContainer">
+                            <div>
+                                <input id="userOldPasswordInput" placeholder="Enter your password" type="password"
+                                    minlength="4">
+                                <p id="userOldPasswordChecker"></p>
+                            </div>
+                            <input id="userNewPasswordInput" placeholder="Enter your new password" type="password"
+                                minlength="4">
+                            <div>
+                                <input id="userNewPasswordAcceptInput" placeholder="Accept your new password"
+                                    type="password" minlength="4">
+                                <p id="userNewPasswordChecker"></p>
+                            </div>
+                            <button id="userNewPasswordAccept">Accept</button>
+                        </div>
                         <!-- ma'lumotlarni tahrirlash uchun modallar -->
-                        <!-- <div class="userNewInfoInputContainer" id="userNewNameContainer">
+                        <!-- <div class="userNewInfoInputContainer" id="userChangeNameContainer">
                             <input id="userNewNameInput" placeholder="Enter new name" type="text">
                             <button id="userNewNameAccept">Accept</button>
                         </div>
-                        <div class="userNewInfoInputContainer" id="userNewPhoneContainer">
+                        <div class="userNewInfoInputContainer" id="userChangePhoneContainer">
                             <input id="userNewPhoneInput" placeholder="Enter new phone number" type="text">
                             <button id="userNewPhoneAccept">Accept</button>
                         </div>
-                        <div class="userNewInfoInputContainer" id="userNewEmailContainer">
+                        <div class="userNewInfoInputContainer" id="userChangeEmailContainer">
                             <input id="userNewEmailInput" placeholder="Enter new email" type="text">
                             <button id="userNewEmailAccept">Accept</button>
                         </div>
-                        <div class="userNewInfoInputContainer" id="userNewPasswordContainer">
-                            <input id="userNewPasswordInput" placeholder="Enter password" type="text">
-                            <button id="userNewPasswordAccept">Accept</button>
-                        </div> -->
+                         -->
                     </div>
                 </div>
                 <div id="first_message" class="messages scrollable"></div>
@@ -127,6 +139,7 @@
     <!-- <div class="profilePhotos">
         <div class="profilePhotoViewBig"></div>
     </div> -->
+    <!-- <p id="infoPasswordChanged">Your password is changed!</p> -->
     <script src="./main.js"></script>
 </body>
 
